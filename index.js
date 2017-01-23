@@ -1,13 +1,14 @@
 module.exports = function use(image) {
   return function config(width, height) {
-    if (isNaN(height))
+    if (!height)
       height = width
+    var cols = image.width  / width
+    var rows = image.height / height
+    var area = Math.round(cols * rows)
     return function extract(x, y) {
       if (isNaN(x)) {
         var sprites = []
-        var cols = image.width  / width
-        var rows = image.height / height
-        var i = Math.round(cols * rows)
+        var i = area
         while (i--) {
           var x = i % cols
           var y = (i - x) / cols
@@ -15,7 +16,7 @@ module.exports = function use(image) {
         }
         return sprites
       }
-      if (isNaN(y))
+      if (!y)
         y = 0
       var canvas = document.createElement('canvas')
       var context = canvas.getContext('2d')
