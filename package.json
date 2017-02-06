@@ -1,6 +1,6 @@
 {
   "name": "sprite",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Extract sprites from a spritesheet image",
   "license": "MIT",
   "author": "Brandon Semilla <semibran@gmail.com>",

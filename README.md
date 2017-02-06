@@ -1,43 +1,49 @@
 # sprite
-> extracts sprites from a spritesheet image
+> Extracts sprites from a spritesheet image
+
+## Installation
+```sh
+npm install --save semibran/sprite
+```
 
 ## Usage
 ```javascript
-var Sprite = require('./path/to/sprite/lib')
-Sprite(image)(width, height)(x, y)
+var Sprite = require('sprite')
+var sprite = Sprite(image)(width, height)(x, y)
 ```
 
-### 1. Image loading: `use(image)`
-Specifies the image from which the resulting sprite will be extracted. This can be either an `Image` or an `HTMLCanvasElement`.
+The main `Sprite` function is curried into three separate phases for reusability. Depending on how it is used, the final function may return either one or multiple `HTMLCanvasElement` objects.
 
-### 2. Dimension definitions: `config(width[, height])`
-Configures the dimensions of the resulting sprite(s). In the event that `height` is not provided, it will default to `width`.
-
+### `use`
 ```javascript
-// Only one argument is required for sprites with a 1:1 size ratio.
-var letter = Sprite(text)(8)(x, y)
+var createSprite = Sprite(image)
 ```
 
+Specifies the image from which the resulting sprite will be extracted. This can be either an `Image`, an `HTMLCanvasElement`, or anything that can be drawn onto a `CanvasRenderingContext2D`.
+
+### `config`
 ```javascript
-// Otherwise, specify both the width and height.
-var sprite = Sprite(mario)(16, 32)(x, y)
+var createTile = Sprite(image)(width, height)
 ```
 
-### 3. Sprite extraction: `extract([x, y])`
+Configures the dimensions of the resulting sprite(s).
+
+### `extract`
+```javascript
+var sprite = Sprite(image)(width, height)(x, y)
+```
+
 The last function does the actual sprite extraction. Note that `x` and `y` are indices referring to the location of the desired sprite rather than raw positions.
 
-`y` will default to `0` if not provided, which is especially handy for wide images with sprites stacked up along the x-axis.
+If `y` is not provided, `x` will be treated as an index, wrapping around the spritesheet until it reaches the desired sprite.
 
-**If `x` is not provided, the library will extract all the sprites possible with the given dimensions in a grid shape, then return them all as an array.** I personally recommend this usage since it abstracts away a lot of the loop logic that you'd have to delve into in order to retrieve each individual sprite.
+**If `x` is not provided, the library will extract all the sprites possible with the given dimensions in a grid shape, then return them all as an array.** I personally recommend this method since it abstracts away most (if not all) of the loop logic that you'd have to delve into in order to retrieve each individual sprite.
 
 ```javascript
 // ES6 users can use the "new" destructuring and object assignment syntax.
 var [idle, run0, run1, run2, skid, jump, ouch] = Sprite(mario)(16)()
 hero.sprites = { idle, run0, run1, run2, skid, jump, ouch }
 ```
-
-#### Returns
-An `HTMLCanvasElement` with the requested sprite.
 
 ## License
 MIT
