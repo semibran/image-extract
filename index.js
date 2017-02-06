@@ -10,14 +10,17 @@ module.exports = function use(image) {
         var sprites = []
         var i = area
         while (i--) {
-          var x = i % cols
-          var y = (i - x) / cols
+          x = i % cols
+          y = (i - x) / cols
           sprites[i] = extract(x, y)
         }
         return sprites
       }
-      if (!y)
-        y = 0
+      if (!y) {
+				var i = x
+				x = i % cols
+				y = (i - x) / cols
+			}
       var canvas = document.createElement('canvas')
       var context = canvas.getContext('2d')
       canvas.width = width
