@@ -2,16 +2,12 @@ module.exports = function use(image) {
 	return function config(width, height) {
 		var cols = image.width  / width
 		var rows = image.height / height
-		var area = Math.round(cols * rows)
 		return function extract(x, y) {
 			if (isNaN(x)) {
 				var sprites = []
-				var i = area
-				while (i--) {
-					x = i % cols
-					y = (i - x) / cols
-					sprites[i] = extract(x, y)
-				}
+				for (var y = rows; y--;)
+					for (var x = cols; x--;)
+						sprites[y * cols + x] = extract(x, y)
 				return sprites
 			}
 			if (!y) {

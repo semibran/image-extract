@@ -1,4 +1,4 @@
-# sprite
+# image-extract
 > Extracts sprites from a spritesheet image
 
 ## Installation

@@ -1,5 +1,5 @@
 {
-  "name": "sprite",
+  "name": "image-extract",
   "version": "1.0.1",
   "description": "Extract sprites from a spritesheet image",
   "license": "MIT",
@@ -7,6 +7,6 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/semibran/sprite.git"
+    "url": "https://github.com/semibran/image-extract.git"
   }
 }
